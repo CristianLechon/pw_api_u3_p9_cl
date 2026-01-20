@@ -3,7 +3,6 @@ package uce.edu.web.api.matricula.interfaces;
 import java.util.List;
 
 import jakarta.inject.Inject;
-import jakarta.persistence.criteria.CriteriaBuilder.In;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PATCH;

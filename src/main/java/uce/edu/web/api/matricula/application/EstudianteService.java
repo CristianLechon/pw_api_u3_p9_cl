@@ -29,7 +29,7 @@ public class EstudianteService {
 
     @Transactional
     public void actualizar(Integer id, Estudiante est){
-        Estudiante estu = consultarPorId(id);
+        Estudiante estu = this.consultarPorId(id);
         estu.apellido = est.apellido;
         estu.nombre = est.nombre;
         estu.fechaNacimiento = est.fechaNacimiento;
