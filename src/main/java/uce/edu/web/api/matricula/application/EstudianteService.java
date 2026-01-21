@@ -28,7 +28,7 @@ public class EstudianteService {
     }
 
     @Transactional
-    public void actualizar(Integer id, Estudiante est){
+    public void actualizar(Integer id, Estudiante est) {
         Estudiante estu = this.consultarPorId(id);
         estu.apellido = est.apellido;
         estu.nombre = est.nombre;
@@ -38,7 +38,7 @@ public class EstudianteService {
     }
 
     @Transactional
-    public void actualizarParcial(Integer id, Estudiante est){
+    public void actualizarParcial(Integer id, Estudiante est) {
         Estudiante estu = this.consultarPorId(id);
 
         if (est.nombre != null) {
@@ -53,7 +53,14 @@ public class EstudianteService {
     }
 
     @Transactional
-    public void eliminar(Integer id){
+    public void eliminar(Integer id) {
         this.estudianteRepository.deleteById(id.longValue());
     }
+
+    public List<Estudiante> buscarPorProvincia(String provincia, String genero) {
+        //return this.estudianteRepository.find("provincia", provincia).list();
+        return this.estudianteRepository.find("provincia = ?1 and genero = ?2", provincia, genero).list();
+    }
+
+
 }
