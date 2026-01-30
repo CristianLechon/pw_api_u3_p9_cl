@@ -23,7 +23,6 @@ import uce.edu.web.api.matricula.application.HijoService;
 import uce.edu.web.api.matricula.application.representation.EstudianteRepresentation;
 import uce.edu.web.api.matricula.application.representation.HijoRepresentation;
 import uce.edu.web.api.matricula.application.representation.LinkDto;
-import uce.edu.web.api.matricula.domain.Estudiante;
 
 @Path("/estudiantes")
 public class EstudianteResource {
@@ -64,9 +63,9 @@ public class EstudianteResource {
     }
 
     private EstudianteRepresentation construirLinks(EstudianteRepresentation er) {
-        String self = this.uriInfo.getBaseUriBuilder().path(EstudianteResource.class).path(String.valueOf(er.id))
+        String self = this.uriInfo.getBaseUriBuilder().path(EstudianteResource.class).path(String.valueOf(er.getId()))
                 .build().toString();
-        String hijos = this.uriInfo.getBaseUriBuilder().path(EstudianteResource.class).path(String.valueOf(er.id))
+        String hijos = this.uriInfo.getBaseUriBuilder().path(EstudianteResource.class).path(String.valueOf(er.getId()))
                 .path("hijos").build().toString();
 
         er.links = List.of(new LinkDto(self, "self"), new LinkDto(hijos,"hijos"));

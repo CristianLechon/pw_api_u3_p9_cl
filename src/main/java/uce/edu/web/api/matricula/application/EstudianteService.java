@@ -31,32 +31,42 @@ public class EstudianteService {
 
     @Transactional
     public void crear(EstudianteRepresentation estu) {
-        this.estudianteRepository.persist(this.mapperToEtudiante(estu));
+        this.estudianteRepository.persist(this.mapperToEstudiante(estu));
     }
 
     @Transactional
-    public void actualizar(Integer id, EstudianteRepresentation est) {
-        Estudiante estu = this.mapperToEtudiante(this.consultarPorId(id));
-        estu.apellido = est.apellido;
-        estu.nombre = est.nombre;
-        estu.fechaNacimiento = est.fechaNacimiento;
-        // Se actualiza automaticamente por dirty cheking
-
+     public void actualizar(Integer id, EstudianteRepresentation est) {
+        Estudiante estu = this.mapperToEstudiante(this.consultarPorId(id));
+        estu.setApellido(est.getApellido());
+        estu.setNombre(est.getNombre());
+        estu.setFechaNacimiento(est.getFechaNacimiento());
+        estu.setProvincia(est.getProvincia());
+        estu.setGenero(est.getGenero());
+        this.estudianteRepository.getEntityManager().merge(estu);
+        // Se actualiza automáticamente por dirty checking
     }
 
-    @Transactional
+     @Transactional
     public void actualizarParcial(Integer id, EstudianteRepresentation est) {
-        Estudiante estu = this.mapperToEtudiante(this.consultarPorId(id));
+        Estudiante estu = this.mapperToEstudiante(this.consultarPorId(id));
+        if (est.getNombre() != null) {
+            estu.setNombre(est.getNombre());
+        }
 
-        if (est.nombre != null) {
-            estu.nombre = est.nombre;
+        if (est.getApellido() != null) {
+            estu.setApellido(est.getApellido());
         }
-        if (est.apellido != null) {
-            estu.apellido = est.apellido;
+
+        if (est.getFechaNacimiento() != null) {
+            estu.setFechaNacimiento(est.getFechaNacimiento());
         }
-        if (est.fechaNacimiento != null) {
-            estu.fechaNacimiento = est.fechaNacimiento;
+        if (est.getProvincia() != null) {
+            estu.setProvincia(est.getProvincia());
         }
+        if (est.getGenero() != null) {
+            estu.setGenero(est.getGenero());
+        }
+        this.estudianteRepository.getEntityManager().merge(estu);
     }
 
     @Transactional
@@ -75,25 +85,25 @@ public class EstudianteService {
     }
 
     private EstudianteRepresentation mapperToER(Estudiante est){
-        EstudianteRepresentation estuR = new EstudianteRepresentation();
-        estuR.id = est.id;
-        estuR.nombre = est.nombre;
-        estuR.apellido = est.apellido;
-        estuR.fechaNacimiento = est.fechaNacimiento;
-        estuR.provincia = est.provincia;
-        estuR.genero = est.genero;
+         EstudianteRepresentation estuR = new EstudianteRepresentation();
+        estuR.setId(est.getId());
+        estuR.setNombre(est.getNombre());
+        estuR.setApellido(est.getApellido());
+        estuR.setFechaNacimiento(est.getFechaNacimiento());
+        estuR.setGenero(est.getGenero());
+        estuR.setProvincia(est.getProvincia());
 
         return estuR;
     }
 
-    private Estudiante mapperToEtudiante(EstudianteRepresentation est){
+    private Estudiante mapperToEstudiante(EstudianteRepresentation est) {
         Estudiante estuR = new Estudiante();
-        estuR.id = est.id;
-        estuR.nombre = est.nombre;
-        estuR.apellido = est.apellido;
-        estuR.fechaNacimiento = est.fechaNacimiento;
-        estuR.provincia = est.provincia;
-        estuR.genero = est.genero;
+        estuR.setId(est.getId());
+        estuR.setNombre(est.getNombre());
+        estuR.setApellido(est.getApellido());
+        estuR.setFechaNacimiento(est.getFechaNacimiento());
+        estuR.setGenero(est.getGenero());
+        estuR.setProvincia(est.getProvincia());
 
         return estuR;
     }
