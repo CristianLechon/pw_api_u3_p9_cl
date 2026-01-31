@@ -85,7 +85,7 @@ public class EstudianteService {
     }
 
     private EstudianteRepresentation mapperToER(Estudiante est){
-         EstudianteRepresentation estuR = new EstudianteRepresentation();
+        EstudianteRepresentation estuR = new EstudianteRepresentation();
         estuR.setId(est.getId());
         estuR.setNombre(est.getNombre());
         estuR.setApellido(est.getApellido());
