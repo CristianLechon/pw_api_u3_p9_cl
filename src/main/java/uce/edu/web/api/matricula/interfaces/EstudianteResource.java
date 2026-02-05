@@ -39,10 +39,10 @@ public class EstudianteResource {
     @GET
     @Path("")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("admin")
+    @RolesAllowed({ "admin", "user", "docente" })
     public List<EstudianteRepresentation> listarTodos() {
         List<EstudianteRepresentation> list = new ArrayList<>();
-        for(EstudianteRepresentation estu: this.estudianteService.listarTodos()){
+        for (EstudianteRepresentation estu : this.estudianteService.listarTodos()) {
             list.add(this.construirLinks(estu));
         }
         System.out.println("Listar todos XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -63,7 +63,7 @@ public class EstudianteResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed("admin")
-    //@PermitAll
+    // @PermitAll
     public EstudianteRepresentation consultarPorId(@PathParam("id") Integer iden) { // esto es un Path variable
         return this.construirLinks(this.estudianteService.consultarPorId(iden));
     }
@@ -74,7 +74,7 @@ public class EstudianteResource {
         String hijos = this.uriInfo.getBaseUriBuilder().path(EstudianteResource.class).path(String.valueOf(er.getId()))
                 .path("hijos").build().toString();
 
-        er.links = List.of(new LinkDto(self, "self"), new LinkDto(hijos,"hijos"));
+        er.links = List.of(new LinkDto(self, "self"), new LinkDto(hijos, "hijos"));
         return er;
     }
 
